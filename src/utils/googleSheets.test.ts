@@ -2,10 +2,9 @@ import { describe, expect, it } from 'vitest'
 import { buildSheetCsvUrl, transformSheetRows } from './googleSheets'
 
 describe('Google Sheets synchronization', () => {
-  it('builds a public CSV endpoint for a named sheet', () => {
-    const url = buildSheetCsvUrl('abc123', 'Input Data W1_Kategori 1')
-    expect(url).toContain('/spreadsheets/d/abc123/gviz/tq')
-    expect(url).toContain('sheet=Input%20Data%20W1_Kategori%201')
+  it('builds the full CSV export endpoint using the sheet gid', () => {
+    const url = buildSheetCsvUrl('abc123', '1073456068')
+    expect(url).toBe('https://docs.google.com/spreadsheets/d/abc123/export?format=csv&gid=1073456068')
   })
 
   it('normalizes spreadsheet rows into dashboard records', () => {

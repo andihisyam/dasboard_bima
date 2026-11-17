@@ -3,10 +3,10 @@ import type { LocationRecord, Source, YearCategory } from '../types/data'
 import { worstStatus } from './analytics'
 
 export const SPREADSHEET_ID = '13cQRzYEaM8Ao6koVQVC-NNg6mRCpum7n'
-export const SHEETS: Array<{ source: Source; name: string }> = [
-  { source: 'W1', name: 'Input Data W1_Kategori 1' },
-  { source: 'W2', name: 'Input Data W2_Kategori 1' },
-  { source: 'W3', name: 'Input Data W3_Kategori 1' },
+export const SHEETS: Array<{ source: Source; name: string; gid: string }> = [
+  { source: 'W1', name: 'Input Data W1_Kategori 1', gid: '1613945513' },
+  { source: 'W2', name: 'Input Data W2_Kategori 1', gid: '1073456068' },
+  { source: 'W3', name: 'Input Data W3_Kategori 1', gid: '2034039986' },
 ]
 
 type SheetRow = Record<string, unknown>
@@ -48,8 +48,8 @@ function hash(value: string): string {
   return (result >>> 0).toString(16).padStart(8, '0')
 }
 
-export function buildSheetCsvUrl(spreadsheetId: string, sheetName: string): string {
-  return `https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(sheetName)}`
+export function buildSheetCsvUrl(spreadsheetId: string, gid: string): string {
+  return `https://docs.google.com/spreadsheets/d/${spreadsheetId}/export?format=csv&gid=${gid}`
 }
 
 export function applyRegencyStatuses(records: LocationRecord[]): LocationRecord[] {
@@ -91,8 +91,8 @@ export function transformSheetRows(source: Source, rows: SheetRow[]): LocationRe
   return applyRegencyStatuses(records)
 }
 
-async function fetchSheet(source: Source, name: string): Promise<LocationRecord[]> {
-  const response = await fetch(buildSheetCsvUrl(SPREADSHEET_ID, name), { cache: 'no-store' })
+async function fetchSheet(source: Source, name: string, gid: string): Promise<LocationRecord[]> {
+  const response = await fetch(buildSheetCsvUrl(SPREADSHEET_ID, gid), { cache: 'no-store' })
   if (!response.ok) throw new Error(`Gagal membaca ${name} (${response.status})`)
   const csv = await response.text()
   const parsed = Papa.parse<SheetRow>(csv, { header: true, skipEmptyLines: 'greedy' })
@@ -104,7 +104,7 @@ async function fetchSheet(source: Source, name: string): Promise<LocationRecord[
 }
 
 export async function synchronizeGoogleSheets(): Promise<LocationRecord[]> {
-  const sheetRecords = await Promise.all(SHEETS.map((sheet) => fetchSheet(sheet.source, sheet.name)))
+  const sheetRecords = await Promise.all(SHEETS.map((sheet) => fetchSheet(sheet.source, sheet.name, sheet.gid)))
   const records = applyRegencyStatuses(sheetRecords.flat())
   if (!records.length) throw new Error('Spreadsheet tidak menghasilkan data lokasi.')
   return records
