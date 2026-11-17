@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/provinsi", "destination": "/index.html" },
+    { "source": "/detail", "destination": "/index.html" }
+  ]
+}
