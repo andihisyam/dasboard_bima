@@ -12,6 +12,24 @@ Dashboard interaktif untuk menganalisis data lokasi dari sheet W1, W2, dan W3 pa
 - Tabel prioritas pembaruan
 - Detail lokasi dengan pencarian, sorting, dan pagination
 - Tampilan responsif untuk laptop dan layar presentasi
+- Sinkronisasi manual dari Google Spreadsheet publik
+- Penyimpanan hasil sinkronisasi terakhir pada browser
+
+## Sinkronisasi Google Spreadsheet
+
+Dashboard terhubung ke Spreadsheet publik:
+
+`https://docs.google.com/spreadsheets/d/13cQRzYEaM8Ao6koVQVC-NNg6mRCpum7n/edit`
+
+Tab yang dibaca:
+
+- `Input Data W1_Kategori 1`
+- `Input Data W2_Kategori 1`
+- `Input Data W3_Kategori 1`
+
+Klik tombol `Sinkronkan Spreadsheet` di kanan atas dashboard untuk mengambil data terbaru. Hasil sinkronisasi divalidasi, ditransformasikan di browser, lalu disimpan pada penyimpanan lokal browser. Jika halaman dimuat ulang pada browser yang sama, dashboard tetap menggunakan hasil sinkronisasi terakhir.
+
+Karena sinkronisasi ini berjalan pada browser, pengguna di perangkat atau browser lain perlu menekan tombol sinkronisasi masing-masing.
 
 ## Aturan status
 

@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 import { RouterLink, RouterView, useRoute } from 'vue-router'
-import { BarChart3, Building2, Database, MapPinned, Menu, X } from '@lucide/vue'
+import { BarChart3, Building2, Database, MapPinned, Menu, RefreshCw, X } from '@lucide/vue'
 import { useDashboardStore } from './stores/dashboard'
 
 const store = useDashboardStore()
 const route = useRoute()
 const mobileOpen = ref(false)
 const title = computed(() => ({ summary: 'Ringkasan nasional', province: 'Analisis provinsi', detail: 'Detail lokasi' }[String(route.name)] ?? 'Dashboard'))
+const lastSyncedLabel = computed(() => store.lastSyncedAt
+  ? new Intl.DateTimeFormat('id-ID', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(store.lastSyncedAt))
+  : 'Data awal Excel')
 onMounted(store.load)
 </script>
 
@@ -28,12 +31,22 @@ onMounted(store.load)
       <header class="topbar">
         <button class="menu-button" @click="mobileOpen=true"><Menu /></button>
         <div><span class="topbar__kicker">DASHBOARD MONITORING</span><h1>{{ title }}</h1></div>
-        <div class="topbar__status"><i /> Data terhubung</div>
+        <div class="topbar__actions">
+          <div class="topbar__status"><i /> <span>Terakhir diperbarui<br><strong>{{ lastSyncedLabel }}</strong></span></div>
+          <button class="sync-button" :disabled="store.syncing" @click="store.synchronize">
+            <RefreshCw :size="17" :class="{ spinning: store.syncing }" />
+            {{ store.syncing ? 'Menyinkronkan...' : 'Sinkronkan Spreadsheet' }}
+          </button>
+        </div>
       </header>
       <main>
         <div v-if="store.loading" class="state-panel"><div class="loader"/><h2>Memuat data monitoring</h2></div>
         <div v-else-if="store.error" class="state-panel state-panel--error"><h2>Data tidak dapat dimuat</h2><p>{{ store.error }}</p><button class="primary-button" @click="store.load">Coba lagi</button></div>
-        <RouterView v-else />
+        <template v-else>
+          <div v-if="store.syncMessage" class="sync-notice sync-notice--success">{{ store.syncMessage }}</div>
+          <div v-if="store.syncError" class="sync-notice sync-notice--error">{{ store.syncError }}</div>
+          <RouterView />
+        </template>
       </main>
     </div>
   </div>

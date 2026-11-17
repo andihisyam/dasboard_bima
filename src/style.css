@@ -49,9 +49,18 @@ a { color: inherit; }
 .topbar { height: 72px; background: #fff; border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; padding: 0 32px; position: sticky; top: 0; z-index: 20; }
 .topbar__kicker { color: var(--blue); }
 .topbar h1 { font-weight: 400; font-size: 20px; margin: 2px 0 0; }
+.topbar__actions { display: flex; align-items: center; gap: 16px; margin-left: auto; }
 .topbar__status { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 13px; }
+.topbar__status strong { color: var(--ink); font-weight: 500; }
 .topbar__status i, .data-pill i { width: 8px; height: 8px; border-radius: 50%; background: var(--green); }
+.sync-button { min-height: 42px; border: 0; background: var(--blue); color: #fff; padding: 0 16px; display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
+.sync-button:hover { background: var(--blue-hover); }
+.sync-button:disabled { opacity: .7; cursor: wait; }
+.spinning { animation: spin .8s linear infinite; }
 main { min-height: calc(100vh - 72px); }
+.sync-notice { position: sticky; top: 72px; z-index: 19; padding: 11px 32px; font-size: 13px; border-bottom: 1px solid transparent; }
+.sync-notice--success { background: #defbe6; color: #0e6027; border-color: #a7f0ba; }
+.sync-notice--error { background: #fff1f1; color: #a2191f; border-color: #ffd7d9; }
 .page { padding: 32px; max-width: 1600px; margin: 0 auto; }
 .page-intro { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 24px; }
 .page-intro .eyebrow, .panel .eyebrow, .filter-panel .eyebrow { color: var(--blue); }
@@ -150,6 +159,7 @@ tbody tr:hover { background: #f8f8f8; }
   .menu-button { display: grid; place-items: center; margin-right: 12px; color: var(--ink); }
   .topbar { justify-content: flex-start; padding: 0 18px; }
   .topbar__status { margin-left: auto; }
+  .topbar__status { display: none; }
   .page { padding: 24px 18px; }
   .dashboard-grid--wide, .dashboard-grid--two { grid-template-columns: 1fr; }
   .panel--span-2, .panel--span-3 { grid-column: span 1; }
@@ -157,7 +167,7 @@ tbody tr:hover { background: #f8f8f8; }
   .filter-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 600px) {
-  .topbar__status { display: none; }
+  .sync-button { width: 42px; padding: 0; justify-content: center; font-size: 0; }
   .page-intro { align-items: flex-start; flex-direction: column; }
   .page-intro h2 { font-size: 27px; }
   .filter-grid, .stat-grid--four, .stat-grid--five { grid-template-columns: 1fr; }
