@@ -1,0 +1,36 @@
+{
+  "totalRecords": 6324,
+  "totalProvinces": 36,
+  "totalRegencies": 285,
+  "totalDistricts": 1856,
+  "categoryCounts": {
+    "above_2021": 4269,
+    "below_2021": 1211,
+    "year_2021": 569,
+    "unknown": 275
+  },
+  "sourceCounts": {
+    "W1": 2414,
+    "W2": 3108,
+    "W3": 802
+  },
+  "yearCounts": {
+    "2015": 23,
+    "2016": 18,
+    "2017": 29,
+    "2018": 11,
+    "2019": 58,
+    "2020": 1072,
+    "2021": 569,
+    "2022": 616,
+    "2023": 669,
+    "2024": 2730,
+    "2025": 254
+  },
+  "categoryLabels": {
+    "below_2021": "Di bawah 2021",
+    "year_2021": "Tahun 2021",
+    "above_2021": "Di atas 2021",
+    "unknown": "Belum diketahui"
+  }
+}

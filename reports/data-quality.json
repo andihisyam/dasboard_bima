@@ -1,0 +1,710 @@
+{
+  "inputFile": "/Users/mac/Lainnya/Check List Ketersediaan Data dan Pekerjaan Sistem Monev.xlsx",
+  "sheets": {
+    "W1": {
+      "sheetName": "Input Data W1_Kategori 1",
+      "records": 2414,
+      "ignoredBlankOrIncompleteRows": 593,
+      "unknownYears": 275
+    },
+    "W2": {
+      "sheetName": "Input Data W2_Kategori 1",
+      "records": 3108,
+      "ignoredBlankOrIncompleteRows": 928,
+      "unknownYears": 0
+    },
+    "W3": {
+      "sheetName": "Input Data W3_Kategori 1",
+      "records": 802,
+      "ignoredBlankOrIncompleteRows": 1285,
+      "unknownYears": 0
+    }
+  },
+  "summary": {
+    "totalRecords": 6324,
+    "totalProvinces": 36,
+    "totalRegencies": 285,
+    "totalDistricts": 1856,
+    "categoryCounts": {
+      "above_2021": 4269,
+      "below_2021": 1211,
+      "year_2021": 569,
+      "unknown": 275
+    },
+    "sourceCounts": {
+      "W1": 2414,
+      "W2": 3108,
+      "W3": 802
+    },
+    "yearCounts": {
+      "2015": 23,
+      "2016": 18,
+      "2017": 29,
+      "2018": 11,
+      "2019": 58,
+      "2020": 1072,
+      "2021": 569,
+      "2022": 616,
+      "2023": 669,
+      "2024": 2730,
+      "2025": 254
+    },
+    "categoryLabels": {
+      "below_2021": "Di bawah 2021",
+      "year_2021": "Tahun 2021",
+      "above_2021": "Di atas 2021",
+      "unknown": "Belum diketahui"
+    }
+  },
+  "potentialDuplicateGroups": 81,
+  "potentialDuplicates": [
+    {
+      "source": "W1",
+      "province": "Sumatera Utara",
+      "regency": "Dairi",
+      "locationName": "Sidangkat",
+      "year": 2024,
+      "count": 2
+    },
+    {
+      "source": "W1",
+      "province": "Sumatera Utara",
+      "regency": "Humbang Hasundutan",
+      "locationName": "Hutajulu",
+      "year": 2024,
+      "count": 2
+    },
+    {
+      "source": "W1",
+      "province": "Sumatera Utara",
+      "regency": "Labuhanbatu",
+      "locationName": "Kampung Sawah",
+      "year": 2024,
+      "count": 2
+    },
+    {
+      "source": "W1",
+      "province": "Sumatera Utara",
+      "regency": "Medan",
+      "locationName": "Martubung",
+      "year": 2024,
+      "count": 2
+    },
+    {
+      "source": "W1",
+      "province": "Sumatera Utara",
+      "regency": "Medan",
+      "locationName": "Kampung Nelayan",
+      "year": 2024,
+      "count": 2
+    },
+    {
+      "source": "W1",
+      "province": "Sumatera Barat",
+      "regency": "Padang Pariaman",
+      "locationName": "Kampung Baru",
+      "year": 2024,
+      "count": 2
+    },
+    {
+      "source": "W1",
+      "province": "Sumatera Barat",
+      "regency": "Padang Pariaman",
+      "locationName": "Kasai",
+      "year": 2024,
+      "count": 2
+    },
+    {
+      "source": "W1",
+      "province": "Sumatera Barat",
+      "regency": "Padang Pariaman",
+      "locationName": "Kampung Dalam",
+      "year": 2024,
+      "count": 2
+    },
+    {
+      "source": "W1",
+      "province": "Sumatera Barat",
+      "regency": "Kepulauan Mentawai",
+      "locationName": "Matobe",
+      "year": 2024,
+      "count": 2
+    },
+    {
+      "source": "W1",
+      "province": "Bengkulu",
+      "regency": "Kabupaten Mukomuko",
+      "locationName": "Pasar Belakang",
+      "year": 2023,
+      "count": 2
+    },
+    {
+      "source": "W1",
+      "province": "Kep. Bangka Belitung",
+      "regency": "Kab. Bangka Barat",
+      "locationName": "Pangkal Lalang",
+      "year": 2020,
+      "count": 2
+    },
+    {
+      "source": "W1",
+      "province": "Kep. Bangka Belitung",
+      "regency": "Kab. Bangka Barat",
+      "locationName": "Lesung Batang",
+      "year": 2020,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Barat",
+      "regency": "Bandung",
+      "locationName": "Kp. Babakan",
+      "year": 2020,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Barat",
+      "regency": "Bandung",
+      "locationName": "Kp. Babakan Cianjur",
+      "year": 2020,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Barat",
+      "regency": "Bandung",
+      "locationName": "Kp. Sukamulya",
+      "year": 2020,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Barat",
+      "regency": "Bandung",
+      "locationName": "Kp. Talun",
+      "year": 2020,
+      "count": 3
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Barat",
+      "regency": "Bandung",
+      "locationName": "Kp. Cisarua",
+      "year": 2020,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Barat",
+      "regency": "Bandung",
+      "locationName": "Kp. Sukamaju",
+      "year": 2020,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Barat",
+      "regency": "Bandung",
+      "locationName": "Kp. Pereng",
+      "year": 2020,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Barat",
+      "regency": "Bandung",
+      "locationName": "Kp. Sukamanah",
+      "year": 2020,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Barat",
+      "regency": "Bandung",
+      "locationName": "Kp. Pangkalan",
+      "year": 2020,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Barat",
+      "regency": "Bandung",
+      "locationName": "Kp. Cibiuk",
+      "year": 2020,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Barat",
+      "regency": "Bandung",
+      "locationName": "Kp. Sayang",
+      "year": 2020,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Barat",
+      "regency": "Bandung",
+      "locationName": "Kp. Ciganitri",
+      "year": 2020,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Barat",
+      "regency": "Bandung",
+      "locationName": "Kp. Babakan Mulya",
+      "year": 2020,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Barat",
+      "regency": "Karawang",
+      "locationName": "Kampung Leuwisisir",
+      "year": 2025,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Barat",
+      "regency": "Purwakarta",
+      "locationName": "Anjun",
+      "year": 2020,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Barat",
+      "regency": "Purwakarta",
+      "locationName": "Cibogohilir",
+      "year": 2020,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Barat",
+      "regency": "Purwakarta",
+      "locationName": "Pamoyanan",
+      "year": 2020,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Barat",
+      "regency": "Purwakarta",
+      "locationName": "Cibinong",
+      "year": 2020,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Barat",
+      "regency": "Purwakarta",
+      "locationName": "Sempur",
+      "year": 2020,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Barat",
+      "regency": "Purwakarta",
+      "locationName": "Nagrikaler",
+      "year": 2020,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Barat",
+      "regency": "Purwakarta",
+      "locationName": "Purwamekar",
+      "year": 2020,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Barat",
+      "regency": "Purwakarta",
+      "locationName": "Cipaisan",
+      "year": 2020,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Barat",
+      "regency": "Majalengka",
+      "locationName": "Blok Jum'at",
+      "year": 2022,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Barat",
+      "regency": "Bandung Barat",
+      "locationName": "Babakan Cianjur",
+      "year": 2020,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Barat",
+      "regency": "Kota Bandung",
+      "locationName": "Sukamanah",
+      "year": 2020,
+      "count": 3
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Barat",
+      "regency": "Kota Bandung",
+      "locationName": "Babakan",
+      "year": 2020,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Barat",
+      "regency": "Kota Bandung",
+      "locationName": "Babakan Cianjur",
+      "year": 2020,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Barat",
+      "regency": "Kota Bandung",
+      "locationName": "Sukamulya",
+      "year": 2020,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Barat",
+      "regency": "Kota Bandung",
+      "locationName": "Talun",
+      "year": 2020,
+      "count": 3
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Barat",
+      "regency": "Kota Bandung",
+      "locationName": "Cisarua",
+      "year": 2020,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Barat",
+      "regency": "Kota Bandung",
+      "locationName": "Sukamaju",
+      "year": 2020,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Barat",
+      "regency": "Kota Bandung",
+      "locationName": "Pereng",
+      "year": 2020,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Barat",
+      "regency": "Kota Bandung",
+      "locationName": "Pangkalan",
+      "year": 2020,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Barat",
+      "regency": "Kota Bandung",
+      "locationName": "Cibiuk",
+      "year": 2020,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Barat",
+      "regency": "Kota Bandung",
+      "locationName": "Sayang",
+      "year": 2020,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Barat",
+      "regency": "Kota Bandung",
+      "locationName": "Ciganitri",
+      "year": 2020,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Barat",
+      "regency": "Kota Bandung",
+      "locationName": "Babakan Mulya",
+      "year": 2020,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Barat",
+      "regency": "Bogor",
+      "locationName": "Mekarsari",
+      "year": 2024,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Timur",
+      "regency": "Kota Madiun",
+      "locationName": "Kota Lama",
+      "year": 2024,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Timur",
+      "regency": "Kota Madiun",
+      "locationName": "Proliman Patung Pendekar",
+      "year": 2024,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Timur",
+      "regency": "Kota Madiun",
+      "locationName": "Bunderan Taman",
+      "year": 2024,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Timur",
+      "regency": "Kota Madiun",
+      "locationName": "Masjid Kuno Donopuran",
+      "year": 2024,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Timur",
+      "regency": "Kota Madiun",
+      "locationName": "Manguharjo",
+      "year": 2024,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Timur",
+      "regency": "Kota Madiun",
+      "locationName": "Nambangan Lor",
+      "year": 2024,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Timur",
+      "regency": "Kota Madiun",
+      "locationName": "Masjid Kuno Kuncen",
+      "year": 2024,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Timur",
+      "regency": "Kota Madiun",
+      "locationName": "Demangan",
+      "year": 2024,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Timur",
+      "regency": "Kota Madiun",
+      "locationName": "Kartoharjo",
+      "year": 2024,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Timur",
+      "regency": "Kota Madiun",
+      "locationName": "Kelun",
+      "year": 2024,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Timur",
+      "regency": "Kota Madiun",
+      "locationName": "Manisrejo",
+      "year": 2024,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Timur",
+      "regency": "Kota Madiun",
+      "locationName": "Nambangan Kidul",
+      "year": 2024,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Timur",
+      "regency": "Kota Madiun",
+      "locationName": "Pilangbango",
+      "year": 2024,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Timur",
+      "regency": "Kota Madiun",
+      "locationName": "Sukosari",
+      "year": 2024,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Timur",
+      "regency": "Kota Madiun",
+      "locationName": "Tawangrejo",
+      "year": 2024,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Timur",
+      "regency": "Kota Madiun",
+      "locationName": "Pangongangan",
+      "year": 2024,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Timur",
+      "regency": "Gresik",
+      "locationName": "Panceng Ujungpangkah",
+      "year": 2024,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Timur",
+      "regency": "Gresik",
+      "locationName": "Dukun Bungah",
+      "year": 2024,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Timur",
+      "regency": "Kota Pasuruan",
+      "locationName": "Batas Kota",
+      "year": 2024,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Timur",
+      "regency": "Gresik",
+      "locationName": "Kota Pesisir Timur",
+      "year": 2024,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Timur",
+      "regency": "Gresik",
+      "locationName": "Industri Perdagangan Manyar",
+      "year": 2024,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Timur",
+      "regency": "Gresik",
+      "locationName": "Pesisir Selatan Bawean",
+      "year": 2024,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Timur",
+      "regency": "Gresik",
+      "locationName": "Nagari Giri Segmen Heritage Sidogiri",
+      "year": 2024,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Timur",
+      "regency": "Gresik",
+      "locationName": "Das Bengawan Solo Sidayu",
+      "year": 2024,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Jawa Timur",
+      "regency": "Kota Pasuruan",
+      "locationName": "Pesisir",
+      "year": 2024,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Nusa Tenggara Barat",
+      "regency": "Lombok Tengah",
+      "locationName": "Montong Gamang",
+      "year": 2021,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Nusa Tenggara Barat",
+      "regency": "Lombok Tengah",
+      "locationName": "Tanak Awu",
+      "year": 2021,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Nusa Tenggara Barat",
+      "regency": "Bima",
+      "locationName": "Simpasai",
+      "year": 2023,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Nusa Tenggara Barat",
+      "regency": "Kota Bima",
+      "locationName": "Rasabou",
+      "year": 2022,
+      "count": 2
+    },
+    {
+      "source": "W2",
+      "province": "Nusa Tenggara Timur",
+      "regency": "Sumba Barat",
+      "locationName": "Kabaliedu",
+      "year": 2020,
+      "count": 2
+    },
+    {
+      "source": "W3",
+      "province": "Sulawesi Utara",
+      "regency": "Kab. Minahasa Selatan",
+      "locationName": "Kapitu",
+      "year": 2024,
+      "count": 2
+    }
+  ]
+}
