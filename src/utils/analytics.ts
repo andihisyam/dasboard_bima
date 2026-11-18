@@ -15,6 +15,7 @@ export function filterRecords(records: LocationRecord[], filters: DashboardFilte
     if (filters.district !== 'ALL' && record.district !== filters.district) return false
     if (filters.category !== 'ALL' && record.yearCategory !== filters.category) return false
     if (filters.year !== 'ALL' && record.year !== filters.year) return false
+    if (filters.mapDescription !== 'ALL' && (record.mapDescriptionStatus ?? 'no_description') !== filters.mapDescription) return false
     if (query && !`${record.locationName} ${record.regency} ${record.district ?? ''}`.toLocaleLowerCase('id-ID').includes(query)) return false
     return true
   })

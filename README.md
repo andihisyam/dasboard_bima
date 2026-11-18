@@ -29,6 +29,13 @@ Tab yang dibaca:
 
 Klik tombol `Sinkronkan Spreadsheet` di kanan atas dashboard untuk mengambil data terbaru. Hasil sinkronisasi divalidasi, ditransformasikan di browser, lalu disimpan pada penyimpanan lokal browser. Jika halaman dimuat ulang pada browser yang sama, dashboard tetap menggunakan hasil sinkronisasi terakhir.
 
+Kolom `Keterangan Peta` dikelompokkan menjadi dua status pada dashboard:
+
+- `Sesuai` jika nilainya berisi `Sesuai` (tanpa membedakan huruf besar/kecil)
+- `Belum ada keterangan` jika kosong atau tidak berisi nilai `Sesuai`
+
+Status ini tersedia sebagai filter dan kolom pada tabel detail lokasi.
+
 Karena sinkronisasi ini berjalan pada browser, pengguna di perangkat atau browser lain perlu menekan tombol sinkronisasi masing-masing.
 
 ## Aturan status

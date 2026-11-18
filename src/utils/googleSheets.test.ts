@@ -27,4 +27,14 @@ describe('Google Sheets synchronization', () => {
     ])
     expect(records[0]).toEqual(expect.objectContaining({ year: null, yearCategory: 'unknown', regencyStatus: 'unknown' }))
   })
+
+  it('classifies Keterangan Peta as sesuai or belum ada keterangan', () => {
+    const records = transformSheetRows('W2', [
+      { Nama: 'Lokasi Peta A', Provinsi: 'Jambi', 'Kota/Kabupaten': 'Kota Jambi', Kecamatan: 'Paal Merah', Tahun: '2024', 'Keterangan Peta': ' Sesuai ' },
+      { Nama: 'Lokasi Peta B', Provinsi: 'Jambi', 'Kota/Kabupaten': 'Kota Jambi', Kecamatan: 'Danau Sipin', Tahun: '2024', 'Keterangan Peta': '' },
+    ])
+
+    expect(records[0]).toEqual(expect.objectContaining({ mapDescription: 'Sesuai', mapDescriptionStatus: 'suitable' }))
+    expect(records[1]).toEqual(expect.objectContaining({ mapDescription: null, mapDescriptionStatus: 'no_description' }))
+  })
 })

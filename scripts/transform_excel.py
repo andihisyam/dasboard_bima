@@ -27,6 +27,7 @@ HEADER_ALIASES = {
     "year": {"tahun"},
     "authority": {"kewenangan"},
     "slum_level": {"tingkat kekumuhan"},
+    "map_description": {"keterangan peta"},
 }
 
 CATEGORY_LABELS = {
@@ -164,6 +165,7 @@ def transform_workbook(input_path: Path) -> tuple[list[dict[str, Any]], dict[str
 
             authority = normalize_text(value_at(row, columns.get("authority")))
             slum_level = normalize_text(value_at(row, columns.get("slum_level")))
+            map_description = normalize_text(value_at(row, columns.get("map_description")))
             record = {
                 "id": stable_id(source, row_number, province, regency, name),
                 "source": source,
@@ -176,6 +178,8 @@ def transform_workbook(input_path: Path) -> tuple[list[dict[str, Any]], dict[str
                 "yearCategory": category,
                 "authority": authority,
                 "slumLevel": slum_level,
+                "mapDescription": map_description,
+                "mapDescriptionStatus": "suitable" if map_description and map_description.casefold() == "sesuai" else "no_description",
             }
             records.append(record)
             source_records += 1

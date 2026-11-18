@@ -127,6 +127,9 @@ tbody tr:hover { background: #f8f8f8; }
 .status-badge--unknown { background: #e8e8e8; color: #525252; }
 .status-badge--unknown i { background: var(--gray); }
 .source-tag { display: inline-grid; place-items: center; min-width: 34px; height: 24px; background: #edf5ff; color: #0043ce; font-family: 'IBM Plex Mono', monospace; font-size: 11px; }
+.map-description-badge { display: inline-flex; padding: 5px 8px; border-radius: 20px; font-size: 11px; white-space: nowrap; }
+.map-description-badge--suitable { background: #defbe6; color: #0e6027; }
+.map-description-badge--empty { background: #e8e8e8; color: #525252; }
 .sortable { cursor: pointer; user-select: none; }
 .sortable:hover { color: var(--blue); }
 .empty-cell { text-align: center; color: var(--muted); padding: 48px; }

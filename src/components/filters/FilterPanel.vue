@@ -21,6 +21,7 @@ const { filters, options } = storeToRefs(store)
       <label v-if="detail"><span>Kecamatan</span><select v-model="filters.district"><option value="ALL">Semua kecamatan</option><option v-for="item in options.districts" :key="item" :value="item">{{ item }}</option></select></label>
       <label><span>Kategori tahun</span><select v-model="filters.category"><option value="ALL">Semua kategori</option><option value="below_2021">Di bawah 2021</option><option value="year_2021">Tahun 2021</option><option value="above_2021">Di atas 2021</option><option value="unknown">Belum diketahui</option></select></label>
       <label><span>Tahun aktual</span><select v-model="filters.year"><option value="ALL">Semua tahun</option><option v-for="year in options.years" :key="year" :value="year">{{ year }}</option></select></label>
+      <label><span>Keterangan peta</span><select v-model="filters.mapDescription"><option value="ALL">Semua keterangan</option><option value="suitable">Sesuai</option><option value="no_description">Belum ada keterangan</option></select></label>
       <label v-if="detail" class="search-field"><span>Cari lokasi</span><div><Search :size="17"/><input v-model="filters.search" placeholder="Nama lokasi/kecamatan" /></div></label>
     </div>
   </section>

@@ -4,11 +4,11 @@ import type { DashboardFilters, LocationRecord } from '../types/data'
 import { filterRecords, getAvailableOptions } from '../utils/analytics'
 import { synchronizeGoogleSheets } from '../utils/googleSheets'
 
-const CACHE_KEY = 'monev-sheets-cache-v2'
-const LEGACY_CACHE_KEYS = ['monev-sheets-cache-v1']
+const CACHE_KEY = 'monev-sheets-cache-v4'
+const LEGACY_CACHE_KEYS = ['monev-sheets-cache-v1', 'monev-sheets-cache-v2', 'monev-sheets-cache-v3']
 
 const defaults = (): DashboardFilters => ({
-  source: 'ALL', province: 'ALL', regency: 'ALL', district: 'ALL', category: 'ALL', year: 'ALL', search: '',
+  source: 'ALL', province: 'ALL', regency: 'ALL', district: 'ALL', category: 'ALL', year: 'ALL', mapDescription: 'ALL', search: '',
 })
 
 export const useDashboardStore = defineStore('dashboard', () => {

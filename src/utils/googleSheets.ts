@@ -1,5 +1,5 @@
 import Papa from 'papaparse'
-import type { LocationRecord, Source, YearCategory } from '../types/data'
+import type { LocationRecord, MapDescriptionStatus, Source, YearCategory } from '../types/data'
 import { worstStatus } from './analytics'
 
 export const SPREADSHEET_ID = '13cQRzYEaM8Ao6koVQVC-NNg6mRCpum7n'
@@ -42,6 +42,10 @@ function categorizeYear(year: number | null): YearCategory {
   return 'above_2021'
 }
 
+function classifyMapDescription(value: unknown): MapDescriptionStatus {
+  return normalizeText(value)?.toLocaleLowerCase('id-ID') === 'sesuai' ? 'suitable' : 'no_description'
+}
+
 function hash(value: string): string {
   let result = 5381
   for (let index = 0; index < value.length; index += 1) result = ((result << 5) + result) ^ value.charCodeAt(index)
@@ -71,6 +75,7 @@ export function transformSheetRows(source: Source, rows: SheetRow[]): LocationRe
     const regency = normalizeText(readField(row, ['Kota/Kabupaten', 'Kabupaten/Kota', 'Kab/Kota']))
     const district = normalizeText(readField(row, ['Kecamatan']))
     const year = parseYear(readField(row, ['Tahun']))
+    const mapDescription = normalizeText(readField(row, ['Keterangan Peta']))
     if (!locationName || !province || !regency) return []
 
     return [{
@@ -86,6 +91,8 @@ export function transformSheetRows(source: Source, rows: SheetRow[]): LocationRe
       regencyStatus: 'unknown',
       authority: normalizeText(readField(row, ['Kewenangan'])),
       slumLevel: normalizeText(readField(row, ['Tingkat Kekumuhan'])),
+      mapDescription,
+      mapDescriptionStatus: classifyMapDescription(mapDescription),
     }]
   })
   return applyRegencyStatuses(records)
