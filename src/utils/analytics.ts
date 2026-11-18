@@ -6,6 +6,10 @@ export function worstStatus(categories: YearCategory[]): YearCategory {
   return statusPriority.find((category) => categories.includes(category)) ?? 'unknown'
 }
 
+export function paginateItems<T>(items: T[], page: number, pageSize: number): T[] {
+  return items.slice((page - 1) * pageSize, page * pageSize)
+}
+
 export function filterRecords(records: LocationRecord[], filters: DashboardFilters): LocationRecord[] {
   const query = filters.search.trim().toLocaleLowerCase('id-ID')
   return records.filter((record) => {

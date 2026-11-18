@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
-import { Building2, CircleAlert, CircleCheck, Clock3 } from '@lucide/vue'
+import { Building2, ChevronLeft, ChevronRight, CircleAlert, CircleCheck, Clock3 } from '@lucide/vue'
 import type { EChartsOption } from 'echarts'
 import { useDashboardStore } from '../stores/dashboard'
-import { aggregateRegencies } from '../utils/analytics'
+import { aggregateRegencies, paginateItems } from '../utils/analytics'
 import FilterPanel from '../components/filters/FilterPanel.vue'
 import StatCard from '../components/cards/StatCard.vue'
 import EChart from '../components/charts/EChart.vue'
@@ -14,6 +14,11 @@ const store = useDashboardStore()
 const { filteredRecords, filters } = storeToRefs(store)
 const number = new Intl.NumberFormat('id-ID')
 const rows = computed(() => aggregateRegencies(filteredRecords.value))
+const page = ref(1)
+const pageSize = ref(25)
+const totalPages = computed(() => Math.max(1, Math.ceil(rows.value.length / pageSize.value)))
+const pageRows = computed(() => paginateItems(rows.value, page.value, pageSize.value))
+watch([rows, pageSize], () => { page.value = 1 })
 const title = computed(() => filters.value.province === 'ALL' ? 'Semua provinsi' : filters.value.province)
 const countStatus = (status: string) => rows.value.filter((item) => item.status === status).length
 const barRows = computed(() => [...rows.value].sort((a, b) => b.below_2021 - a.below_2021 || b.total - a.total).slice(0, 20))
@@ -61,5 +66,5 @@ const trendChart = computed<EChartsOption>(() => ({
     <article class="panel"><div class="panel__header"><div><span class="eyebrow">KEMUTAKHIRAN</span><h3>Persentase lokasi di atas 2021</h3></div></div><EChart :option="percentageChart" :height="520" /></article>
     <article class="panel panel--span-2"><div class="panel__header"><div><span class="eyebrow">DISTRIBUSI TAHUN</span><h3>Persebaran tahun data pada wilayah terpilih</h3></div></div><EChart :option="trendChart" :height="260" /></article>
   </section>
-  <article class="panel table-panel"><div class="panel__header"><div><span class="eyebrow">REKAP WILAYAH</span><h3>Ringkasan kabupaten/kota</h3></div><RouterLink to="/detail" class="text-link">Telusuri lokasi →</RouterLink></div><div class="table-wrap"><table><thead><tr><th>Kabupaten/Kota</th><th class="number-cell">Total</th><th class="number-cell">&lt; 2021</th><th class="number-cell">= 2021</th><th class="number-cell">&gt; 2021</th><th class="number-cell">Tidak diketahui</th><th class="number-cell">Terkini</th><th>Status</th></tr></thead><tbody><tr v-for="row in rows" :key="`${row.province}-${row.regency}`"><td><strong>{{ row.regency }}</strong><small class="cell-subtitle">{{ row.province }}</small></td><td class="number-cell">{{ number.format(row.total) }}</td><td class="number-cell danger-text">{{ number.format(row.below_2021) }}</td><td class="number-cell warning-text">{{ number.format(row.year_2021) }}</td><td class="number-cell success-text">{{ number.format(row.above_2021) }}</td><td class="number-cell">{{ number.format(row.unknown) }}</td><td class="number-cell"><strong>{{ row.currentPercentage.toFixed(1) }}%</strong></td><td><StatusBadge :status="row.status" /></td></tr></tbody></table></div></article>
+  <article class="panel table-panel"><div class="panel__header"><div><span class="eyebrow">REKAP WILAYAH</span><h3>Ringkasan kabupaten/kota</h3></div><div class="table-controls"><label>Baris <select v-model="pageSize"><option :value="10">10</option><option :value="25">25</option><option :value="50">50</option><option :value="100">100</option></select></label><RouterLink to="/detail" class="text-link">Telusuri lokasi →</RouterLink></div></div><div class="table-wrap"><table><thead><tr><th>Kabupaten/Kota</th><th class="number-cell">Total</th><th class="number-cell">&lt; 2021</th><th class="number-cell">= 2021</th><th class="number-cell">&gt; 2021</th><th class="number-cell">Tidak diketahui</th><th class="number-cell">Terkini</th><th>Status</th></tr></thead><tbody><tr v-for="row in pageRows" :key="`${row.province}-${row.regency}`"><td><strong>{{ row.regency }}</strong><small class="cell-subtitle">{{ row.province }}</small></td><td class="number-cell">{{ number.format(row.total) }}</td><td class="number-cell danger-text">{{ number.format(row.below_2021) }}</td><td class="number-cell warning-text">{{ number.format(row.year_2021) }}</td><td class="number-cell success-text">{{ number.format(row.above_2021) }}</td><td class="number-cell">{{ number.format(row.unknown) }}</td><td class="number-cell"><strong>{{ row.currentPercentage.toFixed(1) }}%</strong></td><td><StatusBadge :status="row.status" /></td></tr><tr v-if="!pageRows.length"><td colspan="8" class="empty-cell">Tidak ada kabupaten/kota yang sesuai dengan filter.</td></tr></tbody></table></div><div class="pagination"><span>Menampilkan {{ rows.length ? (page - 1) * pageSize + 1 : 0 }}–{{ Math.min(page * pageSize, rows.length) }} dari {{ number.format(rows.length) }}</span><div><button :disabled="page === 1" @click="page--"><ChevronLeft :size="17"/></button><span>Halaman {{ page }} / {{ totalPages }}</span><button :disabled="page === totalPages" @click="page++"><ChevronRight :size="17"/></button></div></div></article>
 </div></template>

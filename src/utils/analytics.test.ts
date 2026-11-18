@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { LocationRecord } from '../types/data'
-import { aggregateRegencies, filterRecords, getAvailableOptions } from './analytics'
+import { aggregateRegencies, filterRecords, getAvailableOptions, paginateItems } from './analytics'
 
 const records: LocationRecord[] = [
   { id: '1', source: 'W1', sourceRow: 2, province: 'Jambi', regency: 'Kota Jambi', district: 'Telanaipura', locationName: 'A', year: 2020, yearCategory: 'below_2021', regencyStatus: 'below_2021', authority: null, slumLevel: null, mapDescriptionStatus: 'suitable' },
@@ -39,5 +39,10 @@ describe('dashboard analytics', () => {
     expect(options.regencies).toEqual(['Kerinci', 'Kota Jambi'])
     expect(options.districts).toEqual(['Paal Merah', 'Telanaipura'])
     expect(options.years).toEqual([2020, 2021, 2024])
+  })
+
+  it('paginates province analysis rows', () => {
+    expect(paginateItems(['a', 'b', 'c', 'd', 'e'], 2, 2)).toEqual(['c', 'd'])
+    expect(paginateItems(['a', 'b', 'c', 'd', 'e'], 3, 2)).toEqual(['e'])
   })
 })
