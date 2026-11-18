@@ -55,7 +55,7 @@ const compositionChart = computed<EChartsOption>(() => ({
   color: ['#da1e28', '#f1c21b', '#24a148', '#8d8d8d'],
   tooltip: { trigger: 'item', formatter: '{b}<br/><strong>{c}</strong> lokasi ({d}%)' },
   legend: { bottom: 0, icon: 'circle' },
-  series: [{ type: 'pie', radius: ['53%', '76%'], center: ['50%', '44%'], label: { formatter: '{d}%', fontWeight: 600 }, data: [
+  series: [{ type: 'pie', radius: ['45%', '65%'], center: ['50%', '46%'], label: { show: true, formatter: '{c}\n({d}%)', fontWeight: 600, fontSize: 12, lineHeight: 18 }, labelLine: { show: true, length: 12, length2: 16, smooth: true }, data: [
     { name: 'Di bawah 2021', value: categoryCounts.value.below_2021 }, { name: 'Tahun 2021', value: categoryCounts.value.year_2021 }, { name: 'Di atas 2021', value: categoryCounts.value.above_2021 }, { name: 'Belum diketahui', value: categoryCounts.value.unknown },
   ] }],
 }))
