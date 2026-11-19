@@ -3,10 +3,10 @@ import type { LocationRecord } from '../types/data'
 import { aggregateRegencies, filterRecords, getAvailableOptions, paginateItems } from './analytics'
 
 const records: LocationRecord[] = [
-  { id: '1', source: 'W1', sourceRow: 2, province: 'Jambi', regency: 'Kota Jambi', district: 'Telanaipura', locationName: 'A', year: 2020, yearCategory: 'below_2021', regencyStatus: 'below_2021', authority: null, slumLevel: null, mapDescriptionStatus: 'suitable' },
-  { id: '2', source: 'W1', sourceRow: 3, province: 'Jambi', regency: 'Kota Jambi', district: 'Paal Merah', locationName: 'B', year: 2024, yearCategory: 'above_2021', regencyStatus: 'below_2021', authority: null, slumLevel: null, mapDescriptionStatus: 'no_description' },
-  { id: '3', source: 'W2', sourceRow: 2, province: 'Jambi', regency: 'Kerinci', district: 'Kayu Aro', locationName: 'C', year: 2021, yearCategory: 'year_2021', regencyStatus: 'year_2021', authority: null, slumLevel: null, mapDescriptionStatus: 'suitable' },
-  { id: '4', source: 'W3', sourceRow: 2, province: 'Aceh', regency: 'Aceh Barat', district: 'Johan Pahlawan', locationName: 'D', year: 2024, yearCategory: 'above_2021', regencyStatus: 'above_2021', authority: null, slumLevel: null, mapDescriptionStatus: 'no_description' },
+  { id: '1', source: 'W1', sourceRow: 2, province: 'Jambi', regency: 'Kota Jambi', district: 'Telanaipura', locationName: 'A', year: 2020, yearCategory: 'needsUpdate', regencyStatus: 'needsUpdate', authority: null, slumLevel: null, mapDescriptionStatus: 'suitable' },
+  { id: '2', source: 'W1', sourceRow: 3, province: 'Jambi', regency: 'Kota Jambi', district: 'Paal Merah', locationName: 'B', year: 2024, yearCategory: 'updated', regencyStatus: 'needsUpdate', authority: null, slumLevel: null, mapDescriptionStatus: 'no_description' },
+  { id: '3', source: 'W2', sourceRow: 2, province: 'Jambi', regency: 'Kerinci', district: 'Kayu Aro', locationName: 'C', year: 2021, yearCategory: 'needsUpdate', regencyStatus: 'needsUpdate', authority: null, slumLevel: null, mapDescriptionStatus: 'suitable' },
+  { id: '4', source: 'W3', sourceRow: 2, province: 'Aceh', regency: 'Aceh Barat', district: 'Johan Pahlawan', locationName: 'D', year: 2024, yearCategory: 'updated', regencyStatus: 'updated', authority: null, slumLevel: null, mapDescriptionStatus: 'no_description' },
 ]
 
 describe('dashboard analytics', () => {
@@ -29,8 +29,8 @@ describe('dashboard analytics', () => {
   it('aggregates categories per regency and uses worst status', () => {
     const result = aggregateRegencies(records.filter((record) => record.province === 'Jambi'))
     expect(result).toEqual([
-      expect.objectContaining({ regency: 'Kerinci', total: 1, year_2021: 1, status: 'year_2021' }),
-      expect.objectContaining({ regency: 'Kota Jambi', total: 2, below_2021: 1, above_2021: 1, status: 'below_2021' }),
+      expect.objectContaining({ regency: 'Kerinci', total: 1, needsUpdate: 1, status: 'needsUpdate' }),
+      expect.objectContaining({ regency: 'Kota Jambi', total: 2, needsUpdate: 1, updated: 1, status: 'needsUpdate' }),
     ])
   })
 

@@ -16,9 +16,9 @@ describe('Google Sheets synchronization', () => {
 
     expect(records).toHaveLength(2)
     expect(records[0]).toEqual(expect.objectContaining({
-      source: 'W1', locationName: 'Lokasi A', province: 'Jambi', year: 2020, yearCategory: 'below_2021', regencyStatus: 'below_2021',
+      source: 'W1', locationName: 'Lokasi A', province: 'Jambi', year: 2020, yearCategory: 'needsUpdate', regencyStatus: 'needsUpdate',
     }))
-    expect(records[1]).toEqual(expect.objectContaining({ year: 2024, yearCategory: 'above_2021', regencyStatus: 'below_2021' }))
+    expect(records[1]).toEqual(expect.objectContaining({ year: 2024, yearCategory: 'updated', regencyStatus: 'needsUpdate' }))
   })
 
   it('marks empty and invalid years as unknown', () => {

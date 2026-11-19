@@ -16,8 +16,8 @@ const { filteredRecords } = storeToRefs(store)
 const number = new Intl.NumberFormat('id-ID')
 const aggregates = computed(() => aggregateRegencies(filteredRecords.value))
 const provinces = computed(() => new Set(filteredRecords.value.map((item) => item.province)).size)
-const currentRegencies = computed(() => aggregates.value.filter((item) => item.status === 'above_2021').length)
-const attentionRegencies = computed(() => aggregates.value.filter((item) => ['below_2021', 'year_2021'].includes(item.status)).length)
+const currentRegencies = computed(() => aggregates.value.filter((item) => item.status === 'updated').length)
+const attentionRegencies = computed(() => aggregates.value.filter((item) => item.status === 'needsUpdate').length)
 
 const provinceRows = computed(() => {
   const grouped = new Map<string, ReturnType<typeof aggregateRegencies>>()
@@ -31,7 +31,7 @@ const provinceRows = computed(() => {
 })
 
 const statusChart = computed<EChartsOption>(() => ({
-  color: ['#da1e28', '#f1c21b', '#24a148', '#8d8d8d'],
+  color: ['#da1e28', '#24a148', '#8d8d8d'],
   tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
   legend: { top: 0, textStyle: { color: '#525252', fontFamily: 'IBM Plex Sans' } },
   grid: { top: 44, left: 115, right: 20, bottom: 20 },
@@ -83,7 +83,7 @@ const priorities = computed(() => [...aggregates.value].sort((a, b) => b.needsUp
       <article class="panel panel--span-3"><div class="panel__header"><div><span class="eyebrow">DISTRIBUSI WAKTU</span><h3>Jumlah lokasi menurut tahun data</h3></div></div><EChart :option="yearChart" :height="270" /></article>
     </section>
     <article class="panel table-panel"><div class="panel__header"><div><span class="eyebrow">PRIORITAS PEMBARUAN</span><h3>10 kabupaten/kota yang perlu diperhatikan</h3></div><RouterLink to="/provinsi" class="text-link">Lihat analisis lengkap →</RouterLink></div>
-      <div class="table-wrap"><table><thead><tr><th>#</th><th>Provinsi</th><th>Kabupaten/Kota</th><th class="number-cell">Total</th><th class="number-cell">&lt; 2021</th><th class="number-cell">= 2021</th><th class="number-cell">&gt; 2021</th><th>Status</th></tr></thead><tbody><tr v-for="(row, index) in priorities" :key="`${row.province}-${row.regency}`"><td>{{ index + 1 }}</td><td>{{ row.province }}</td><td><strong>{{ row.regency }}</strong></td><td class="number-cell">{{ number.format(row.total) }}</td><td class="number-cell danger-text">{{ number.format(row.below_2021) }}</td><td class="number-cell warning-text">{{ number.format(row.year_2021) }}</td><td class="number-cell success-text">{{ number.format(row.above_2021) }}</td><td><StatusBadge :status="row.status" /></td></tr></tbody></table></div>
+      <div class="table-wrap"><table><thead><tr><th>#</th><th>Provinsi</th><th>Kabupaten/Kota</th><th class="number-cell">Total</th><th class="number-cell">Perlu pemutakhiran</th><th class="number-cell">Sudah pemutakhiran</th><th class="number-cell">Tidak diketahui</th><th>Status</th></tr></thead><tbody><tr v-for="(row, index) in priorities" :key="`${row.province}-${row.regency}`"><td>{{ index + 1 }}</td><td>{{ row.province }}</td><td><strong>{{ row.regency }}</strong></td><td class="number-cell">{{ number.format(row.total) }}</td><td class="number-cell danger-text">{{ number.format(row.needsUpdate) }}</td><td class="number-cell success-text">{{ number.format(row.updated) }}</td><td class="number-cell">{{ number.format(row.unknown) }}</td><td><StatusBadge :status="row.status" /></td></tr></tbody></table></div>
     </article>
   </div>
 </template>

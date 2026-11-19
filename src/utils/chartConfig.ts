@@ -25,7 +25,7 @@ export function createCompositionPieChart(counts: PieChartData, options?: {
   } = options ?? {}
 
   return {
-    color: ['#da1e28', '#f1c21b', '#8d8d8d'],
+    color: ['#da1e28', '#24a148', '#8d8d8d'],
     tooltip: { trigger: 'item', formatter: '{b}<br/><strong>{c}</strong> lokasi ({d}%)' },
     legend: legendPosition === 'bottom'
       ? { bottom: 0, icon: 'circle', textStyle: { fontSize: 11 }, itemGap: 20 }

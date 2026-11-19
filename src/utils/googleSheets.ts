@@ -37,9 +37,7 @@ function parseYear(value: unknown): number | null {
 
 function categorizeYear(year: number | null): YearCategory {
   if (year === null) return 'unknown'
-  if (year < 2021) return 'below_2021'
-  if (year === 2021) return 'year_2021'
-  return 'above_2021'
+  return year <= 2021 ? 'needsUpdate' : 'updated'
 }
 
 function classifyMapDescription(value: unknown): MapDescriptionStatus {

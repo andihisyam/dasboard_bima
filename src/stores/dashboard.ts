@@ -2,10 +2,18 @@ import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
 import type { DashboardFilters, LocationRecord } from '../types/data'
 import { filterRecords, getAvailableOptions } from '../utils/analytics'
-import { synchronizeGoogleSheets } from '../utils/googleSheets'
+import { applyRegencyStatuses, synchronizeGoogleSheets } from '../utils/googleSheets'
 
-const CACHE_KEY = 'monev-sheets-cache-v4'
-const LEGACY_CACHE_KEYS = ['monev-sheets-cache-v1', 'monev-sheets-cache-v2', 'monev-sheets-cache-v3']
+const CACHE_KEY = 'monev-sheets-cache-v5'
+const LEGACY_CACHE_KEYS = ['monev-sheets-cache-v1', 'monev-sheets-cache-v2', 'monev-sheets-cache-v3', 'monev-sheets-cache-v4']
+
+function normalizeCategories(records: LocationRecord[]): LocationRecord[] {
+  return records.map((record) => ({
+    ...record,
+    yearCategory: record.year === null ? 'unknown' : record.year <= 2021 ? 'needsUpdate' : 'updated',
+    regencyStatus: 'unknown',
+  }))
+}
 
 const defaults = (): DashboardFilters => ({
   source: 'ALL', province: 'ALL', regency: 'ALL', district: 'ALL', category: 'ALL', year: 'ALL', mapDescription: 'ALL', search: '',
@@ -35,7 +43,7 @@ export const useDashboardStore = defineStore('dashboard', () => {
       if (cached) {
         const parsed = JSON.parse(cached) as { records: LocationRecord[]; syncedAt: string }
         if (Array.isArray(parsed.records) && parsed.records.length) {
-          records.value = parsed.records
+          records.value = applyRegencyStatuses(normalizeCategories(parsed.records))
           lastSyncedAt.value = parsed.syncedAt
           loaded.value = true
           return
@@ -43,7 +51,7 @@ export const useDashboardStore = defineStore('dashboard', () => {
       }
       const response = await fetch(`${import.meta.env.BASE_URL}data/location-records.json`)
       if (!response.ok) throw new Error(`Gagal memuat data (${response.status})`)
-      records.value = await response.json()
+      records.value = applyRegencyStatuses(normalizeCategories(await response.json()))
       loaded.value = true
     } catch (cause) {
       error.value = cause instanceof Error ? cause.message : 'Gagal memuat data'
