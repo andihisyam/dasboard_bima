@@ -1,9 +1,8 @@
 import type { EChartsOption } from 'echarts'
 
 export interface PieChartData {
-  below_2021: number
-  year_2021: number
-  above_2021: number
+  needsUpdate: number
+  updated: number
   unknown: number
 }
 
@@ -26,7 +25,7 @@ export function createCompositionPieChart(counts: PieChartData, options?: {
   } = options ?? {}
 
   return {
-    color: ['#da1e28', '#f1c21b', '#24a148', '#8d8d8d'],
+    color: ['#da1e28', '#f1c21b', '#8d8d8d'],
     tooltip: { trigger: 'item', formatter: '{b}<br/><strong>{c}</strong> lokasi ({d}%)' },
     legend: legendPosition === 'bottom'
       ? { bottom: 0, icon: 'circle', textStyle: { fontSize: 11 }, itemGap: 20 }
@@ -42,9 +41,8 @@ export function createCompositionPieChart(counts: PieChartData, options?: {
         ? { show: true, length: 12, length2: 16, smooth: true }
         : undefined,
       data: [
-        { name: 'Di bawah 2021', value: counts.below_2021 },
-        { name: 'Tahun 2021', value: counts.year_2021 },
-        { name: 'Di atas 2021', value: counts.above_2021 },
+        { name: 'Perlu pemutakhiran', value: counts.needsUpdate },
+        { name: 'Sudah pemutakhiran', value: counts.updated },
         { name: 'Belum diketahui', value: counts.unknown },
       ],
     }],
@@ -63,8 +61,8 @@ export function createRegencyStatusPieChart(counts: RegencyStatusData): EChartsO
       label: { show: true, formatter: '{c}\n({d}%)', fontWeight: 600, fontSize: 12, lineHeight: 18 },
       labelLine: { show: true, length: 12, length2: 16, smooth: true },
       data: [
-        { name: 'Bersih', value: counts.clean },
-        { name: 'Campur', value: counts.mixed },
+        { name: 'Sudah pemutakhiran', value: counts.clean },
+        { name: 'Perlu pemutakhiran', value: counts.mixed },
       ],
     }],
   }

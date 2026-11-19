@@ -24,11 +24,10 @@ const provinceRows = computed(() => {
   aggregates.value.forEach((item) => grouped.set(item.province, [...(grouped.get(item.province) ?? []), item]))
   return [...grouped.entries()].map(([province, rows]) => ({
     province,
-    below: rows.filter((row) => row.status === 'below_2021').length,
-    equal: rows.filter((row) => row.status === 'year_2021').length,
-    above: rows.filter((row) => row.status === 'above_2021').length,
+    needsUpdate: rows.filter((row) => row.status === 'needsUpdate').length,
+    updated: rows.filter((row) => row.status === 'updated').length,
     unknown: rows.filter((row) => row.status === 'unknown').length,
-  })).sort((a, b) => b.below - a.below || a.province.localeCompare(b.province, 'id')).slice(0, 15)
+  })).sort((a, b) => b.needsUpdate - a.needsUpdate || a.province.localeCompare(b.province, 'id')).slice(0, 15)
 })
 
 const statusChart = computed<EChartsOption>(() => ({
@@ -39,17 +38,15 @@ const statusChart = computed<EChartsOption>(() => ({
   xAxis: { type: 'value', splitLine: { lineStyle: { color: '#e0e0e0' } } },
   yAxis: { type: 'category', data: provinceRows.value.map((item) => item.province).reverse(), axisLabel: { width: 100, overflow: 'truncate' } },
   series: [
-    { name: '< 2021', type: 'bar', stack: 'status', data: provinceRows.value.map((item) => item.below).reverse() },
-    { name: '= 2021', type: 'bar', stack: 'status', data: provinceRows.value.map((item) => item.equal).reverse() },
-    { name: '> 2021', type: 'bar', stack: 'status', data: provinceRows.value.map((item) => item.above).reverse() },
+    { name: 'Perlu pemutakhiran', type: 'bar', stack: 'status', data: provinceRows.value.map((item) => item.needsUpdate).reverse() },
+    { name: 'Sudah pemutakhiran', type: 'bar', stack: 'status', data: provinceRows.value.map((item) => item.updated).reverse() },
     { name: 'Tidak diketahui', type: 'bar', stack: 'status', data: provinceRows.value.map((item) => item.unknown).reverse() },
   ],
 }))
 
 const categoryCounts = computed(() => ({
-  below_2021: filteredRecords.value.filter((item) => item.yearCategory === 'below_2021').length,
-  year_2021: filteredRecords.value.filter((item) => item.yearCategory === 'year_2021').length,
-  above_2021: filteredRecords.value.filter((item) => item.yearCategory === 'above_2021').length,
+  needsUpdate: filteredRecords.value.filter((item) => item.yearCategory === 'needsUpdate').length,
+  updated: filteredRecords.value.filter((item) => item.yearCategory === 'updated').length,
   unknown: filteredRecords.value.filter((item) => item.yearCategory === 'unknown').length,
 }))
 const compositionChart = computed<EChartsOption>(() =>
@@ -64,9 +61,9 @@ const yearChart = computed<EChartsOption>(() => ({
   color: ['#0f62fe'], tooltip: { trigger: 'axis' }, grid: { top: 20, left: 50, right: 20, bottom: 36 },
   xAxis: { type: 'category', data: years.value.map(([year]) => year), axisTick: { show: false } },
   yAxis: { type: 'value', splitLine: { lineStyle: { color: '#e0e0e0' } } },
-  series: [{ type: 'bar', data: years.value.map(([, count]) => count), barMaxWidth: 36, itemStyle: { color: (params: any) => Number(years.value[params.dataIndex]?.[0]) < 2021 ? '#da1e28' : Number(years.value[params.dataIndex]?.[0]) === 2021 ? '#f1c21b' : '#24a148' } }],
+  series: [{ type: 'bar', data: years.value.map(([, count]) => count), barMaxWidth: 36, itemStyle: { color: (params: any) => Number(years.value[params.dataIndex]?.[0]) <= 2021 ? '#da1e28' : '#24a148' } }],
 }))
-const priorities = computed(() => [...aggregates.value].sort((a, b) => b.below_2021 - a.below_2021 || b.year_2021 - a.year_2021 || b.unknown - a.unknown).slice(0, 10))
+const priorities = computed(() => [...aggregates.value].sort((a, b) => b.needsUpdate - a.needsUpdate || b.unknown - a.unknown).slice(0, 10))
 </script>
 
 <template>

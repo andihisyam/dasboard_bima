@@ -1,5 +1,5 @@
 export type Source = 'W1' | 'W2' | 'W3'
-export type YearCategory = 'below_2021' | 'year_2021' | 'above_2021' | 'unknown'
+export type YearCategory = 'needsUpdate' | 'updated' | 'unknown'
 export type MapDescriptionStatus = 'suitable' | 'no_description'
 
 export interface LocationRecord {
@@ -34,9 +34,8 @@ export interface RegencyAggregate {
   province: string
   regency: string
   total: number
-  below_2021: number
-  year_2021: number
-  above_2021: number
+  needsUpdate: number
+  updated: number
   unknown: number
   currentPercentage: number
   status: YearCategory

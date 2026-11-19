@@ -118,12 +118,10 @@ tbody tr:hover { background: #f8f8f8; }
 .text-link:hover { text-decoration: underline; }
 .status-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 8px; border-radius: 20px; font-size: 11px; white-space: nowrap; }
 .status-badge i { width: 7px; height: 7px; border-radius: 50%; }
-.status-badge--below_2021 { background: #fff1f1; color: #a2191f; }
-.status-badge--below_2021 i { background: var(--red); }
-.status-badge--year_2021 { background: #fff8e1; color: #684e00; }
-.status-badge--year_2021 i { background: #b28600; }
-.status-badge--above_2021 { background: #defbe6; color: #0e6027; }
-.status-badge--above_2021 i { background: var(--green); }
+.status-badge--needsUpdate { background: #fff1f1; color: #a2191f; }
+.status-badge--needsUpdate i { background: var(--red); }
+.status-badge--updated { background: #defbe6; color: #0e6027; }
+.status-badge--updated i { background: var(--green); }
 .status-badge--unknown { background: #e8e8e8; color: #525252; }
 .status-badge--unknown i { background: var(--gray); }
 .source-tag { display: inline-grid; place-items: center; min-width: 34px; height: 24px; background: #edf5ff; color: #0043ce; font-family: 'IBM Plex Mono', monospace; font-size: 11px; }

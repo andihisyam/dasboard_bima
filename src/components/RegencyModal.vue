@@ -13,7 +13,7 @@ const props = defineProps<Props>()
 const emit = defineEmits<{ close: [] }>()
 
 const number = new Intl.NumberFormat('id-ID')
-const title = computed(() => (props.status === 'clean' ? 'Kabupaten/Kota Bersih' : 'Kabupaten/Kota Campur'))
+const title = computed(() => (props.status === 'clean' ? 'Kabupaten/Kota Sudah Pemutakhiran' : 'Kabupaten/Kota Perlu Pemutakhiran'))
 const sorted = computed(() => [...props.regencies].sort((a, b) => a.regency.localeCompare(b.regency, 'id')))
 </script>
 

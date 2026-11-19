@@ -2,7 +2,9 @@
 import type { YearCategory } from '../types/data'
 
 const labels: Record<YearCategory, string> = {
-  below_2021: 'Di bawah 2021', year_2021: 'Tahun 2021', above_2021: 'Di atas 2021', unknown: 'Belum diketahui',
+  needsUpdate: 'Perlu pemutakhiran',
+  updated: 'Sudah pemutakhiran',
+  unknown: 'Belum diketahui',
 }
 defineProps<{ status: YearCategory }>()
 </script>

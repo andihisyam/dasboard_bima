@@ -1,6 +1,6 @@
 import type { DashboardFilters, LocationRecord, RegencyAggregate, YearCategory } from '../types/data'
 
-const statusPriority: YearCategory[] = ['below_2021', 'year_2021', 'above_2021', 'unknown']
+const statusPriority: YearCategory[] = ['needsUpdate', 'updated', 'unknown']
 
 export function worstStatus(categories: YearCategory[]): YearCategory {
   return statusPriority.find((category) => categories.includes(category)) ?? 'unknown'
@@ -34,15 +34,19 @@ export function aggregateRegencies(records: LocationRecord[]): RegencyAggregate[
 
   return [...groups.values()]
     .map((items) => {
-      const counts = { below_2021: 0, year_2021: 0, above_2021: 0, unknown: 0 }
-      items.forEach((item) => { counts[item.yearCategory] += 1 })
+      const counts = { needsUpdate: 0, updated: 0, unknown: 0 }
+      items.forEach((item) => {
+        if (item.yearCategory === 'unknown') counts.unknown += 1
+        else counts.needsUpdate += item.yearCategory === 'needsUpdate' ? 1 : 0
+        counts.updated += item.yearCategory === 'updated' ? 1 : 0
+      })
       const valid = items.length - counts.unknown
       return {
         province: items[0].province,
         regency: items[0].regency,
         total: items.length,
         ...counts,
-        currentPercentage: valid ? (counts.above_2021 / valid) * 100 : 0,
+        currentPercentage: valid ? (counts.updated / valid) * 100 : 0,
         status: worstStatus(items.map((item) => item.yearCategory)),
       }
     })
@@ -50,7 +54,7 @@ export function aggregateRegencies(records: LocationRecord[]): RegencyAggregate[
 }
 
 export function getRegencyStatusSummary(aggregates: RegencyAggregate[]) {
-  const clean = aggregates.filter((r) => r.status === 'above_2021').length
+  const clean = aggregates.filter((r) => r.status === 'updated').length
   const mixed = aggregates.length - clean
   return { clean, mixed, total: aggregates.length }
 }
