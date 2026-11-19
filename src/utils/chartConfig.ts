@@ -24,7 +24,7 @@ export function createCompositionPieChart(counts: PieChartData, options?: {
     color: ['#da1e28', '#f1c21b', '#24a148', '#8d8d8d'],
     tooltip: { trigger: 'item', formatter: '{b}<br/><strong>{c}</strong> lokasi ({d}%)' },
     legend: legendPosition === 'bottom'
-      ? { bottom: 0, icon: 'circle' }
+      ? { bottom: 0, icon: 'circle', textStyle: { fontSize: 11 }, itemGap: 20 }
       : { orient: 'vertical', right: 10, top: 'center' },
     series: [{
       type: 'pie',
