@@ -31,7 +31,7 @@ export function createCompositionPieChart(counts: PieChartData, options?: {
       radius,
       center,
       label: showLabel
-        ? { show: true, formatter: '{c}\n({d}%)', fontWeight: 600, fontSize: 12, lineHeight: 18, distanceToLabelLine: -20 }
+        ? { show: true, formatter: '{c}\n({d}%)', fontWeight: 600, fontSize: 12, lineHeight: 18 }
         : { show: false },
       labelLine: showLabel
         ? { show: true, length: 12, length2: 16, smooth: true }
