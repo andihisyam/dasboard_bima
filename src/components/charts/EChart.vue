@@ -4,6 +4,7 @@ import * as echarts from 'echarts'
 import type { EChartsOption } from 'echarts'
 
 const props = defineProps<{ option: EChartsOption; height?: number }>()
+const emit = defineEmits<{ click: [params: any] }>()
 const element = ref<HTMLDivElement | null>(null)
 let chart: echarts.ECharts | null = null
 const style = computed(() => ({ height: `${props.height ?? 320}px` }))
@@ -12,6 +13,10 @@ function render() {
   if (!element.value) return
   chart ??= echarts.init(element.value)
   chart.setOption(props.option, true)
+  if (chart) {
+    chart.off('click')
+    chart.on('click', (params: any) => emit('click', params))
+  }
 }
 function resize() { chart?.resize() }
 

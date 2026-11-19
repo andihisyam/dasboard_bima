@@ -10,6 +10,7 @@ import FilterPanel from '../components/filters/FilterPanel.vue'
 import StatCard from '../components/cards/StatCard.vue'
 import EChart from '../components/charts/EChart.vue'
 import StatusBadge from '../components/StatusBadge.vue'
+import RegencyModal from '../components/RegencyModal.vue'
 
 const store = useDashboardStore()
 const { filteredRecords } = storeToRefs(store)
@@ -18,6 +19,9 @@ const page = ref(1)
 const pageSize = ref(25)
 const sortKey = ref<'locationName' | 'province' | 'regency' | 'year'>('province')
 const sortDirection = ref<'asc' | 'desc'>('asc')
+const modalOpen = ref(false)
+const modalStatus = ref<'clean' | 'mixed'>('clean')
+const aggregates = computed(() => aggregateRegencies(filteredRecords.value))
 watch([filteredRecords, pageSize], () => { page.value = 1 })
 const sorted = computed(() => [...filteredRecords.value].sort((a, b) => {
   const left = a[sortKey.value] ?? ''
@@ -30,8 +34,7 @@ const pageRows = computed(() => sorted.value.slice((page.value - 1) * pageSize.v
 const count = (category: string) => filteredRecords.value.filter((item) => item.yearCategory === category).length
 function sort(key: typeof sortKey.value) { if (sortKey.value === key) sortDirection.value = sortDirection.value === 'asc' ? 'desc' : 'asc'; else { sortKey.value = key; sortDirection.value = 'asc' } }
 const compositionChart = computed<EChartsOption>(() => {
-  const aggregates = aggregateRegencies(filteredRecords.value)
-  const summary = getRegencyStatusSummary(aggregates)
+  const summary = getRegencyStatusSummary(aggregates.value)
   return createRegencyStatusPieChart(summary)
 })
 </script>
@@ -47,10 +50,11 @@ const compositionChart = computed<EChartsOption>(() => {
       <StatCard label="Di atas 2021" :value="number.format(count('above_2021'))" note="Data terkini" tone="green" :icon="ShieldCheck" />
       <StatCard v-if="count('unknown')" label="Belum diketahui" :value="number.format(count('unknown'))" note="Tahun perlu dilengkapi" tone="gray" :icon="HelpCircle" />
     </div>
-    <article class="panel detail-summary__chart"><div class="panel__header"><div><span class="eyebrow">STATUS WILAYAH</span><h3>Kabupaten/Kota</h3></div></div><EChart :option="compositionChart" :height="320" /></article>
+    <article class="panel detail-summary__chart"><div class="panel__header"><div><span class="eyebrow">STATUS WILAYAH</span><h3>Kabupaten/Kota</h3></div></div><EChart :option="compositionChart" :height="320" @click="(e) => { modalStatus = e.name === 'Bersih' ? 'clean' : 'mixed'; modalOpen = true }" /></article>
   </section>
   <article class="panel table-panel"><div class="panel__header"><div><span class="eyebrow">DATA LOKASI</span><h3>Daftar lokasi hasil filter</h3></div><div class="table-controls"><label>Baris <select v-model="pageSize"><option :value="10">10</option><option :value="25">25</option><option :value="50">50</option><option :value="100">100</option></select></label></div></div>
     <div class="table-wrap"><table><thead><tr><th class="sortable" @click="sort('province')">Provinsi ↕</th><th class="sortable" @click="sort('regency')">Kabupaten/Kota ↕</th><th>Kecamatan</th><th class="sortable" @click="sort('locationName')">Nama Lokasi ↕</th><th class="sortable number-cell" @click="sort('year')">Tahun ↕</th><th>Kategori</th><th>Kewenangan</th><th>Tingkat kekumuhan</th><th>Keterangan peta</th></tr></thead><tbody><tr v-for="row in pageRows" :key="row.id"><td>{{ row.province }}</td><td><strong>{{ row.regency }}</strong></td><td>{{ row.district ?? '—' }}</td><td>{{ row.locationName }}</td><td class="number-cell"><strong>{{ row.year ?? '—' }}</strong></td><td><StatusBadge :status="row.yearCategory" /></td><td>{{ row.authority ?? '—' }}</td><td>{{ row.slumLevel ?? '—' }}</td><td><span class="map-description-badge" :class="row.mapDescriptionStatus === 'suitable' ? 'map-description-badge--suitable' : 'map-description-badge--empty'">{{ row.mapDescriptionStatus === 'suitable' ? 'Sesuai' : 'Belum ada keterangan' }}</span></td></tr><tr v-if="!pageRows.length"><td colspan="9" class="empty-cell">Tidak ada lokasi yang sesuai dengan filter.</td></tr></tbody></table></div>
     <div class="pagination"><span>Menampilkan {{ sorted.length ? (page - 1) * pageSize + 1 : 0 }}–{{ Math.min(page * pageSize, sorted.length) }} dari {{ number.format(sorted.length) }}</span><div><button :disabled="page === 1" @click="page--"><ChevronLeft :size="17"/></button><span>Halaman {{ page }} / {{ totalPages }}</span><button :disabled="page === totalPages" @click="page++"><ChevronRight :size="17"/></button></div></div>
   </article>
+  <RegencyModal :open="modalOpen" :status="modalStatus" :regencies="modalStatus === 'clean' ? aggregates.filter((r) => r.status === 'above_2021') : aggregates.filter((r) => r.status !== 'above_2021')" @close="modalOpen = false" />
 </div></template>
