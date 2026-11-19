@@ -15,9 +15,9 @@ export function createCompositionPieChart(counts: PieChartData, options?: {
 }): EChartsOption {
   const {
     showLabel = true,
-    radius = showLabel ? ['45%', '65%'] : ['46%', '70%'],
-    center = showLabel ? ['50%', '46%'] : ['34%', '50%'],
-    legendPosition = showLabel ? 'bottom' : 'vertical-right',
+    radius = ['45%', '65%'],
+    center = ['50%', '46%'],
+    legendPosition = 'bottom',
   } = options ?? {}
 
   return {

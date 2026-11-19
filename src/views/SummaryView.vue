@@ -53,7 +53,7 @@ const categoryCounts = computed(() => ({
   unknown: filteredRecords.value.filter((item) => item.yearCategory === 'unknown').length,
 }))
 const compositionChart = computed<EChartsOption>(() =>
-  createCompositionPieChart(categoryCounts.value, { showLabel: true, legendPosition: 'bottom' }),
+  createCompositionPieChart(categoryCounts.value),
 )
 const years = computed(() => {
   const counts = new Map<number, number>()

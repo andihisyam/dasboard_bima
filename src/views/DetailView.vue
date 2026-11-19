@@ -31,7 +31,6 @@ function sort(key: typeof sortKey.value) { if (sortKey.value === key) sortDirect
 const compositionChart = computed<EChartsOption>(() =>
   createCompositionPieChart(
     { below_2021: count('below_2021'), year_2021: count('year_2021'), above_2021: count('above_2021'), unknown: count('unknown') },
-    { showLabel: true, legendPosition: 'vertical-right' },
   ),
 )
 </script>
