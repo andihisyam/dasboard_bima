@@ -9,14 +9,12 @@ interface Props {
   status: 'clean' | 'mixed'
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
 const emit = defineEmits<{ close: [] }>()
 
 const number = new Intl.NumberFormat('id-ID')
 const title = computed(() => (props.status === 'clean' ? 'Kabupaten/Kota Bersih' : 'Kabupaten/Kota Campur'))
 const sorted = computed(() => [...props.regencies].sort((a, b) => a.regency.localeCompare(b.regency, 'id')))
-
-const props = defineProps<Props>()
 </script>
 
 <template>
