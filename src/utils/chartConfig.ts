@@ -7,6 +7,11 @@ export interface PieChartData {
   unknown: number
 }
 
+export interface RegencyStatusData {
+  clean: number
+  mixed: number
+}
+
 export function createCompositionPieChart(counts: PieChartData, options?: {
   showLabel?: boolean
   radius?: [string | number, string | number]
@@ -41,6 +46,25 @@ export function createCompositionPieChart(counts: PieChartData, options?: {
         { name: 'Tahun 2021', value: counts.year_2021 },
         { name: 'Di atas 2021', value: counts.above_2021 },
         { name: 'Belum diketahui', value: counts.unknown },
+      ],
+    }],
+  }
+}
+
+export function createRegencyStatusPieChart(counts: RegencyStatusData): EChartsOption {
+  return {
+    color: ['#24a148', '#f1c21b'],
+    tooltip: { trigger: 'item', formatter: '{b}<br/><strong>{c}</strong> kab/kota ({d}%)' },
+    legend: { bottom: 0, icon: 'circle', textStyle: { fontSize: 11 }, itemGap: 20 },
+    series: [{
+      type: 'pie',
+      radius: ['45%', '65%'],
+      center: ['50%', '46%'],
+      label: { show: true, formatter: '{c}\n({d}%)', fontWeight: 600, fontSize: 12, lineHeight: 18 },
+      labelLine: { show: true, length: 12, length2: 16, smooth: true },
+      data: [
+        { name: 'Bersih', value: counts.clean },
+        { name: 'Campur', value: counts.mixed },
       ],
     }],
   }

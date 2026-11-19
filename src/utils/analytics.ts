@@ -49,6 +49,12 @@ export function aggregateRegencies(records: LocationRecord[]): RegencyAggregate[
     .sort((a, b) => a.regency.localeCompare(b.regency, 'id'))
 }
 
+export function getRegencyStatusSummary(aggregates: RegencyAggregate[]) {
+  const clean = aggregates.filter((r) => r.status === 'above_2021').length
+  const mixed = aggregates.length - clean
+  return { clean, mixed, total: aggregates.length }
+}
+
 export function getAvailableOptions(records: LocationRecord[], filters: DashboardFilters) {
   const sourceScoped = filters.source === 'ALL' ? records : records.filter((record) => record.source === filters.source)
   const provinceScoped = filters.province === 'ALL' ? sourceScoped : sourceScoped.filter((record) => record.province === filters.province)
