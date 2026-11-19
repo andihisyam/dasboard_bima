@@ -5,6 +5,7 @@ import { Building2, Database, MapPin, ShieldAlert, ShieldCheck } from '@lucide/v
 import type { EChartsOption } from 'echarts'
 import { useDashboardStore } from '../stores/dashboard'
 import { aggregateRegencies } from '../utils/analytics'
+import { createCompositionPieChart } from '../utils/chartConfig'
 import FilterPanel from '../components/filters/FilterPanel.vue'
 import StatCard from '../components/cards/StatCard.vue'
 import EChart from '../components/charts/EChart.vue'
@@ -51,14 +52,9 @@ const categoryCounts = computed(() => ({
   above_2021: filteredRecords.value.filter((item) => item.yearCategory === 'above_2021').length,
   unknown: filteredRecords.value.filter((item) => item.yearCategory === 'unknown').length,
 }))
-const compositionChart = computed<EChartsOption>(() => ({
-  color: ['#da1e28', '#f1c21b', '#24a148', '#8d8d8d'],
-  tooltip: { trigger: 'item', formatter: '{b}<br/><strong>{c}</strong> lokasi ({d}%)' },
-  legend: { bottom: 0, icon: 'circle' },
-  series: [{ type: 'pie', radius: ['45%', '65%'], center: ['50%', '46%'], label: { show: true, formatter: '{c}\n({d}%)', fontWeight: 600, fontSize: 12, lineHeight: 18 }, labelLine: { show: true, length: 12, length2: 16, smooth: true }, data: [
-    { name: 'Di bawah 2021', value: categoryCounts.value.below_2021 }, { name: 'Tahun 2021', value: categoryCounts.value.year_2021 }, { name: 'Di atas 2021', value: categoryCounts.value.above_2021 }, { name: 'Belum diketahui', value: categoryCounts.value.unknown },
-  ] }],
-}))
+const compositionChart = computed<EChartsOption>(() =>
+  createCompositionPieChart(categoryCounts.value, { showLabel: true, legendPosition: 'bottom' }),
+)
 const years = computed(() => {
   const counts = new Map<number, number>()
   filteredRecords.value.forEach((item) => { if (item.year) counts.set(item.year, (counts.get(item.year) ?? 0) + 1) })

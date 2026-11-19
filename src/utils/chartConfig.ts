@@ -1,0 +1,47 @@
+import type { EChartsOption } from 'echarts'
+
+export interface PieChartData {
+  below_2021: number
+  year_2021: number
+  above_2021: number
+  unknown: number
+}
+
+export function createCompositionPieChart(counts: PieChartData, options?: {
+  showLabel?: boolean
+  radius?: [string | number, string | number]
+  center?: [string | number, string | number]
+  legendPosition?: 'bottom' | 'vertical-right'
+}): EChartsOption {
+  const {
+    showLabel = true,
+    radius = showLabel ? ['45%', '65%'] : ['46%', '70%'],
+    center = showLabel ? ['50%', '46%'] : ['34%', '50%'],
+    legendPosition = showLabel ? 'bottom' : 'vertical-right',
+  } = options ?? {}
+
+  return {
+    color: ['#da1e28', '#f1c21b', '#24a148', '#8d8d8d'],
+    tooltip: { trigger: 'item', formatter: '{b}<br/><strong>{c}</strong> lokasi ({d}%)' },
+    legend: legendPosition === 'bottom'
+      ? { bottom: 0, icon: 'circle' }
+      : { orient: 'vertical', right: 10, top: 'center' },
+    series: [{
+      type: 'pie',
+      radius,
+      center,
+      label: showLabel
+        ? { show: true, formatter: '{c}\n({d}%)', fontWeight: 600, fontSize: 12, lineHeight: 18 }
+        : { show: false },
+      labelLine: showLabel
+        ? { show: true, length: 12, length2: 16, smooth: true }
+        : undefined,
+      data: [
+        { name: 'Di bawah 2021', value: counts.below_2021 },
+        { name: 'Tahun 2021', value: counts.year_2021 },
+        { name: 'Di atas 2021', value: counts.above_2021 },
+        { name: 'Belum diketahui', value: counts.unknown },
+      ],
+    }],
+  }
+}

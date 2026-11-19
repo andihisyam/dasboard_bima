@@ -4,6 +4,7 @@ import { storeToRefs } from 'pinia'
 import { ChevronLeft, ChevronRight, Database, HelpCircle, ShieldAlert, ShieldCheck } from '@lucide/vue'
 import type { EChartsOption } from 'echarts'
 import { useDashboardStore } from '../stores/dashboard'
+import { createCompositionPieChart } from '../utils/chartConfig'
 import FilterPanel from '../components/filters/FilterPanel.vue'
 import StatCard from '../components/cards/StatCard.vue'
 import EChart from '../components/charts/EChart.vue'
@@ -27,12 +28,12 @@ const totalPages = computed(() => Math.max(1, Math.ceil(sorted.value.length / pa
 const pageRows = computed(() => sorted.value.slice((page.value - 1) * pageSize.value, page.value * pageSize.value))
 const count = (category: string) => filteredRecords.value.filter((item) => item.yearCategory === category).length
 function sort(key: typeof sortKey.value) { if (sortKey.value === key) sortDirection.value = sortDirection.value === 'asc' ? 'desc' : 'asc'; else { sortKey.value = key; sortDirection.value = 'asc' } }
-const compositionChart = computed<EChartsOption>(() => ({
-  color: ['#da1e28', '#f1c21b', '#24a148', '#8d8d8d'], tooltip: { trigger: 'item', formatter: '{b}<br/><strong>{c}</strong> lokasi ({d}%)' }, legend: { orient: 'vertical', right: 10, top: 'center' },
-  series: [{ type: 'pie', radius: ['46%', '70%'], center: ['34%', '50%'], label: { show: false }, data: [
-    { name: 'Di bawah 2021', value: count('below_2021') }, { name: 'Tahun 2021', value: count('year_2021') }, { name: 'Di atas 2021', value: count('above_2021') }, { name: 'Belum diketahui', value: count('unknown') },
-  ] }],
-}))
+const compositionChart = computed<EChartsOption>(() =>
+  createCompositionPieChart(
+    { below_2021: count('below_2021'), year_2021: count('year_2021'), above_2021: count('above_2021'), unknown: count('unknown') },
+    { showLabel: true, legendPosition: 'vertical-right' },
+  ),
+)
 </script>
 
 <template><div class="page">
